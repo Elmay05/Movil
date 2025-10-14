@@ -15,20 +15,21 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.app.examenmovil.presentation.common.components.ErrorView
 import com.app.examenmovil.presentation.common.components.LoadingShimmer
 import com.app.examenmovil.presentation.screens.detail.ApiDetailViewModel
-import com.app.examenmovil.presentation.screens.detail.components.PokemonDetailContent
+import com.app.examenmovil.presentation.screens.detail.components.CountryDetailContent
+
 
 @Suppress("ktlint:standard:function-naming")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PokemonDetailScreen(
-    pokemonId: String,
+fun CountryDetailScreen(
+    countryName: String,
     onBackClick: () -> Unit,
     viewModel: ApiDetailViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    LaunchedEffect(pokemonId) {
-        viewModel.getPokemon(pokemonId)
+    LaunchedEffect(countryName) {
+        viewModel.getCountry(countryName)
     }
 
     // Usaremos un padding estándar de 16.dp para el contenedor principal
@@ -56,14 +57,14 @@ fun PokemonDetailScreen(
             uiState.error != null -> {
                 ErrorView(
                     message = uiState.error ?: "Unknown error",
-                    onRetry = { viewModel.getPokemon(pokemonId) },
+                    onRetry = { viewModel.getCountry(countryName) },
                     modifier = Modifier.align(Alignment.Center),
                 )
             }
-            uiState.pokemon != null -> {
+            uiState.country != null -> {
                 // Si el estado es exitoso, muestra el contenido detallado
-                PokemonDetailContent(
-                    pokemon = uiState.pokemon!!,
+                CountryDetailContent(
+                    country = uiState.country!!,
                 )
             }
         }

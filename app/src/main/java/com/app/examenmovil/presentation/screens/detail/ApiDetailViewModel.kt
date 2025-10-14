@@ -15,14 +15,14 @@ import javax.inject.Inject
 class ApiDetailViewModel
     @Inject
     constructor(
-        private val getPokemonUseCase: GetApiUseCase,
+        private val getCountryUseCase: GetApiUseCase,
     ) : ViewModel() {
         private val _uiState = MutableStateFlow(ApiDetailUiState())
         val uiState: StateFlow<ApiDetailUiState> = _uiState.asStateFlow()
 
-        fun getPokemon(id: String) {
+        fun getCountry(name: String) {
             viewModelScope.launch {
-                getPokemonUseCase(id).collect { result ->
+                getCountryUseCase(name).collect { result ->
                     _uiState.update { state ->
                         when (result) {
                             is Result.Loading ->
@@ -31,7 +31,7 @@ class ApiDetailViewModel
                                 )
                             is Result.Success ->
                                 state.copy(
-                                    pokemon = result.data,
+                                    country = result.data,
                                     isLoading = false,
                                     error = null,
                                 )

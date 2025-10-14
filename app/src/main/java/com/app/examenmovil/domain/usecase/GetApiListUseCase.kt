@@ -15,8 +15,8 @@ class GetApiListUseCase
             flow {
                 try {
                     emit(Result.Loading)
-                    val pokemonList = repository.getPokemonList()
-                    emit(Result.Success(pokemonList))
+                    val countryList = repository.getCountryList()
+                    emit(Result.Success(countryList))
                 } catch (e: Exception) {
                     emit(Result.Error(e))
                 }

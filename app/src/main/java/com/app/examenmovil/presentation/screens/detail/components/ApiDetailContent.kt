@@ -20,7 +20,7 @@ import com.app.examenmovil.domain.Api
 
 @Suppress("ktlint:standard:function-naming")
 @Composable
-fun PokemonDetailContent(pokemon: Api) {
+fun CountryDetailContent(country: Api) {
     Column(
         modifier =
             Modifier
@@ -28,22 +28,18 @@ fun PokemonDetailContent(pokemon: Api) {
                 .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        AsyncImage(
-            model = pokemon.imageUrl,
-            contentDescription = pokemon.name,
-            modifier = Modifier.size(200.dp),
-        )
+
 
         Spacer(modifier = Modifier.height(16.dp))
 
         Text(
-            text = pokemon.name,
+            text = country.name,
             style = MaterialTheme.typography.headlineMedium,
         )
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        Row(
+        /*Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceEvenly,
         ) {
@@ -66,6 +62,6 @@ fun PokemonDetailContent(pokemon: Api) {
             pokemon.types.forEach { type ->
                 Chip(type = type)
             }
-        }
+        }*/
     }
 }

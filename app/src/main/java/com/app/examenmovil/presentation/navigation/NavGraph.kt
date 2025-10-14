@@ -1,7 +1,7 @@
 package com.app.examenmovil.presentation.navigation
 
+import CountryDetailScreen
 import HomeScreen
-import PokemonDetailScreen
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
@@ -16,14 +16,14 @@ sealed class Screen(
 ) {
     object Home : Screen("home")
 
-    object Detail : Screen("pokemon/{pokemonId}") {
-        fun createRoute(pokemonId: String) = "pokemon/$pokemonId"
+    object Detail : Screen("name/{countryName}") {
+        fun createRoute(countryName: String) = "name/$countryName"
     }
 }
 
 @Suppress("ktlint:standard:function-naming")
 @Composable
-fun PokemonNavGraph(
+fun CountryNavGraph(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
 ) {
@@ -34,19 +34,19 @@ fun PokemonNavGraph(
     ) {
         composable(route = Screen.Home.route) {
             HomeScreen(
-                onPokemonClick = { pokemonId ->
-                    navController.navigate(Screen.Detail.createRoute(pokemonId))
+                onCountryClick = { countryName ->
+                    navController.navigate(Screen.Detail.createRoute(countryName))
                 },
             )
         }
 
         composable(
             route = Screen.Detail.route,
-            arguments = listOf(navArgument("pokemonId") { type = NavType.StringType }),
+            arguments = listOf(navArgument("countryName") { type = NavType.StringType }),
         ) { backStackEntry ->
-            val pokemonId = backStackEntry.arguments?.getString("pokemonId") ?: "1"
-            PokemonDetailScreen(
-                pokemonId = pokemonId,
+            val countryName = backStackEntry.arguments?.getString("countryName") ?: "1"
+            CountryDetailScreen(
+                countryName = countryName,
                 onBackClick = { navController.popBackStack() },
             )
         }

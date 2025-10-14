@@ -37,7 +37,7 @@ import com.app.examenmovil.presentation.screens.home.HomeViewModel
 @Suppress("ktlint:standard:function-naming")
 @Composable
 fun SearchTab(
-    onPokemonClick: (String) -> Unit,
+    onCountryClick: (String) -> Unit,
     viewModel: HomeViewModel = hiltViewModel(),
 ) {
     var searchQuery by remember { mutableStateOf("") }
@@ -66,14 +66,14 @@ fun SearchTab(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        val filteredPokemon =
-            remember(searchQuery, uiState.pokemonList) {
+        val filteredCountry =
+            remember(searchQuery, uiState.countryList) {
                 if (searchQuery.isEmpty()) {
                     emptyList()
                 } else {
-                    uiState.pokemonList.filter { pokemon ->
-                        pokemon.name.contains(searchQuery, ignoreCase = true) ||
-                            pokemon.id.contains(searchQuery)
+                    uiState.countryList.filter { country ->
+                        country.name.contains(searchQuery, ignoreCase = true)// ||
+                            //country.name.contains(searchQuery)
                     }
                 }
             }
@@ -103,7 +103,7 @@ fun SearchTab(
                     }
                 }
             }
-            filteredPokemon.isEmpty() -> {
+            filteredCountry.isEmpty() -> {
                 Box(
                     modifier = Modifier.fillMaxSize(),
                     contentAlignment = Alignment.Center,
@@ -134,12 +134,12 @@ fun SearchTab(
                     verticalArrangement = Arrangement.spacedBy(16.dp),
                 ) {
                     items(
-                        items = filteredPokemon,
-                        key = { it.id },
-                    ) { pokemon ->
-                        PokemonCard(
-                            pokemon = pokemon,
-                            onClick = { onPokemonClick(pokemon.id) },
+                        items = filteredCountry,
+                        key = { it.name },
+                    ) { country ->
+                        CountryCard(
+                            country = country,
+                            onClick = { onCountryClick(country.name) },
                         )
                     }
                 }

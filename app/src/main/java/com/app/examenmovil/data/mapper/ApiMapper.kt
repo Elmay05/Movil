@@ -5,10 +5,10 @@ import com.app.examenmovil.domain.Api
 
 fun ApiDto.toDomain(): Api =
     Api(
-        id = id.toString(),
         name = name.replaceFirstChar { it.uppercase() },
-        imageUrl = sprites.frontDefault,
-        weight = weight,
-        height = height,
-        types = types.map { it.type.name },
+        flag = flag.frontDefault,
+        capital = capital.replaceFirstChar { it.uppercase() },
+        subregion = subregion.replaceFirstChar { it.uppercase() },
+        area = area,
+        population = population,
     )

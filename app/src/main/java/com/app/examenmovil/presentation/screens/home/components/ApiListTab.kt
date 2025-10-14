@@ -9,10 +9,10 @@ import com.app.examenmovil.domain.Api
 
 @Suppress("ktlint:standard:function-naming")
 @Composable
-fun PokemonListTab(
-    pokemonList: List<Api>,
+fun CountryListTab(
+    countryList: List<Api>,
     // ya que los clicks no regresan ninguna funcion
-    onPokemonClick: (String) -> Unit,
+    onCountryClick: (String) -> Unit,
 ) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
@@ -23,13 +23,13 @@ fun PokemonListTab(
         // Mock data para el Lab 3
         // va cargando solo lo que se ve en pantalla
         items(
-            items = pokemonList,
+            items = countryList,
             // sirve como hash, cuando mueves muy rapido, lo detecta casi al momento
-            key = { it.id },
-        ) { pokemon ->
-            PokemonCard(
-                pokemon = pokemon,
-                onClick = { onPokemonClick(pokemon.id) },
+            key = { it.name },
+        ) { country ->
+            CountryCard(
+                country = country,
+                onClick = { onCountryClick(country.name) },
             )
         }
     }

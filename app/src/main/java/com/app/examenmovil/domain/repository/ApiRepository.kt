@@ -3,7 +3,7 @@ package com.app.examenmovil.domain.repository
 import com.app.examenmovil.domain.Api
 
 interface ApiRepository {
-    suspend fun getPokemonList(): List<Api>
+    suspend fun getCountryList(): List<Api>
 
-    suspend fun getPokemonById(id: String): Api
+    suspend fun getCountryByName(name: String): Api
 }

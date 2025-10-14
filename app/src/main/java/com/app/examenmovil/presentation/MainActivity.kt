@@ -4,7 +4,8 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import com.app.examenmovil.presentation.navigation.PokemonNavGraph
+import com.app.examenmovil.presentation.navigation.CountryNavGraph
+
 import com.app.examenmovil.presentation.theme.PokedexAppTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -15,7 +16,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             PokedexAppTheme {
-                PokemonNavGraph()
+                CountryNavGraph()
             }
         }
     }

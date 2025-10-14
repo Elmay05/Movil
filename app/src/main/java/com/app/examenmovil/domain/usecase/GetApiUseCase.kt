@@ -11,12 +11,12 @@ class GetApiUseCase
     constructor(
         private val repository: ApiRepository,
     ) {
-        operator fun invoke(id: String): Flow<Result<Api>> =
+        operator fun invoke(name: String): Flow<Result<Api>> =
             flow {
                 try {
                     emit(Result.Loading)
-                    val pokemon = repository.getPokemonById(id)
-                    emit(Result.Success(pokemon))
+                    val country = repository.getCountryByName(name)
+                    emit(Result.Success(country))
                 } catch (e: Exception) {
                     emit(Result.Error(e))
                 }

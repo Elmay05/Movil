@@ -7,14 +7,14 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ApiApi {
-    @GET("pokemon")
-    suspend fun getPokemonList(
+    @GET("all?fields=name")
+    suspend fun getCountryList(
         @Query("limit") limit: Int = 172,
         @Query("offset") offset: Int = 0,
     ): ApiListDto
 
-    @GET("pokemon/{id}")
-    suspend fun getPokemon(
-        @Path("id") id: String,
+    @GET("name/{name}")
+    suspend fun getCountry(
+        @Path("name") id: String,
     ): ApiDto
 }
