@@ -25,12 +25,10 @@ constructor(
             // Si no hay caché o expiró, obtener de la API
             val response = api.getCountryList()
             val countryList =
-                response.name.map { result ->
+                response.map { result ->
                     val name =
                         result.common
-                            .split("/")
-                            .dropLast(1)
-                            .last()
+
                     api.getCountry(name).toDomain()
                 }
 

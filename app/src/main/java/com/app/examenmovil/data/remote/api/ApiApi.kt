@@ -9,9 +9,8 @@ import retrofit2.http.Query
 interface ApiApi {
     @GET("all?fields=name")
     suspend fun getCountryList(
-        @Query("limit") limit: Int = 172,
-        @Query("offset") offset: Int = 0,
-    ): ApiListDto
+        // 'limit' y 'offset' son innecesarios para esta API
+    ):List<ApiListDto>
 
     @GET("name/{name}")
     suspend fun getCountry(
