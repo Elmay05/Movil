@@ -30,7 +30,7 @@ class ApiPreferences
         ) {
             prefs
                 .edit()
-                .putString(PreferencesConstants.KEY_POKEMON_CACHE, gson.toJson(pokemonList))
+                .putString(PreferencesConstants.KEY_API_CACHE, gson.toJson(pokemonList))
                 .putLong(PreferencesConstants.KEY_LAST_UPDATE, System.currentTimeMillis())
                 .putInt(PreferencesConstants.KEY_OFFSET, offset)
                 .putInt(PreferencesConstants.KEY_TOTAL_COUNT, totalCount)
@@ -38,7 +38,7 @@ class ApiPreferences
         }
 
         fun getPokemonCache(): ApiCache? {
-            val json = prefs.getString(PreferencesConstants.KEY_POKEMON_CACHE, null)
+            val json = prefs.getString(PreferencesConstants.KEY_API_CACHE, null)
             val lastUpdate = prefs.getLong(PreferencesConstants.KEY_LAST_UPDATE, 0)
             val offset = prefs.getInt(PreferencesConstants.KEY_OFFSET, 0)
             val totalCount = prefs.getInt(PreferencesConstants.KEY_TOTAL_COUNT, 0)
