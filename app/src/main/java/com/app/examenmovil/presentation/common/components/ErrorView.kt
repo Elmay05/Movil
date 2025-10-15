@@ -67,7 +67,14 @@ fun ErrorViewPreview() {
         )
     }
 }
-
+/**
+ * Componente Composable que muestra un mensaje de error y un botón de reintento.
+ * Para la retroalimentación del usuario cuando fallan las operaciones de red.
+ *
+ * @param message El mensaje de error a mostrar al usuario (e.g., "Fallo la conexión").
+ * @param onRetry función que se ejecuta cuando el usuario presiona el botón "Retry".
+ * @param modifier Modificador de Compose para personalizar la apariencia y el posicionamiento.
+ */
 @Suppress("ktlint:standard:function-naming")
 // Preview en modo oscuro
 @Preview(

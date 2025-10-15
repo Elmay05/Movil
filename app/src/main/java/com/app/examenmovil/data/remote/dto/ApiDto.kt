@@ -3,22 +3,25 @@ package com.app.examenmovil.data.remote.dto
 import com.google.gson.annotations.SerializedName
 
 data class ApiDto(
-    @SerializedName("id") val id: Int,
-    @SerializedName("name") val name: String,
-    @SerializedName("height") val height: Int,
-    @SerializedName("weight") val weight: Int,
-    @SerializedName("sprites") val sprites: SpritesDto,
-    @SerializedName("types") val types: List<TypeDto>,
+
+    // **CORRECCIÓN 1: 'name' es un objeto complejo en la API, no un String.**
+    @SerializedName("name") val name: NameDto,
+    @SerializedName("flags") val flag: SpritesDto,
+
+    // **CORRECCIÓN 2: 'capital' es una lista de Strings en la API, no un String simple.**
+    @SerializedName("capital") val capital: List<String>?,
+
+    @SerializedName("subregion") val subregion: String?, // Añadido '?' para opcionales
+    @SerializedName("area") val area: Double, // Cambiado a Double ya que el área puede ser grande
+    @SerializedName("population") val population: Long, // Cambiado a Long por si la población es grande
 ) {
-    data class SpritesDto(
-        @SerializedName("front_default") val frontDefault: String,
+    // Nueva clase para mapear el objeto 'name' de la API
+    data class NameDto(
+        @SerializedName("common") val common: String,
+        @SerializedName("official") val official: String,
     )
 
-    data class TypeDto(
-        @SerializedName("type") val type: TypeInfoDto,
-    ) {
-        data class TypeInfoDto(
-            @SerializedName("name") val name: String,
-        )
-    }
+    data class SpritesDto(
+        @SerializedName("png") val frontDefault: String,
+    )
 }

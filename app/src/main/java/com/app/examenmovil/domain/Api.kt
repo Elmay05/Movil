@@ -1,31 +1,31 @@
 package com.app.examenmovil.domain
 
 data class Api(
-    val id: String,
     val name: String,
-    val imageUrl: String,
-    val weight: Int,
-    val height: Int,
-    val types: List<String>,
+    val flag: String,
+    val capital: String,
+    val subregion: String,
+    val area: Int,
+    val population: Int,
 ) {
     companion object {
         fun getMockData(): List<Api> =
             listOf(
                 Api(
-                    id = "1",
-                    name = "Bulbasaur",
-                    imageUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png",
-                    weight = 69,
-                    height = 7,
-                    types = listOf("grass", "poison"),
+                    name = "Chile",
+                    flag = "https://flagcdn.com/w320/cl.png",
+                    capital = "Santiago",
+                    subregion = "South America",
+                    area = 756102,
+                    population = 19116209,
                 ),
                 Api(
-                    id = "2",
-                    name = "Ivysaur",
-                    imageUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png",
-                    weight = 130,
-                    height = 10,
-                    types = listOf("grass", "poison"),
+                    name = "Mexico",
+                    flag = "https://flagcdn.com/w320/mx.png",
+                    capital = "Mexico City",
+                    subregion = "North America",
+                    area = 1964375,
+                    population = 128932753,
                 ),
                 // Agregar más Pokémon mock...
             )

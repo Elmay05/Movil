@@ -1,5 +1,6 @@
+package com.app.examenmovil.presentation.screens.search
 
-
+import CountryCard
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -37,7 +38,7 @@ import com.app.examenmovil.presentation.screens.home.HomeViewModel
 @Suppress("ktlint:standard:function-naming")
 @Composable
 fun SearchTab(
-    onPokemonClick: (String) -> Unit,
+    onCountryClick: (String) -> Unit,
     viewModel: HomeViewModel = hiltViewModel(),
 ) {
     var searchQuery by remember { mutableStateOf("") }
@@ -53,7 +54,7 @@ fun SearchTab(
             value = searchQuery,
             onValueChange = { searchQuery = it },
             modifier = Modifier.fillMaxWidth(),
-            label = { Text("Search Pokémon") },
+            label = { Text("Search Country") },
             leadingIcon = {
                 Icon(Icons.Default.Search, contentDescription = null)
             },
@@ -66,14 +67,17 @@ fun SearchTab(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        val filteredPokemon =
-            remember(searchQuery, uiState.pokemonList) {
+        val filteredCountry =
+            remember(searchQuery, uiState.countryList) {
                 if (searchQuery.isEmpty()) {
                     emptyList()
                 } else {
-                    uiState.pokemonList.filter { pokemon ->
-                        pokemon.name.contains(searchQuery, ignoreCase = true) ||
-                            pokemon.id.contains(searchQuery)
+                    uiState.countryList.filter { country ->
+                        // FIX: Aplicar manejo de nulos seguro a las búsquedas por nombre y capital.
+                        val nameMatch = country.name?.contains(searchQuery, ignoreCase = true) ?: false
+                        val capitalMatch = country.capital?.contains(searchQuery, ignoreCase = true) ?: false
+
+                        nameMatch || capitalMatch
                     }
                 }
             }
@@ -103,7 +107,7 @@ fun SearchTab(
                     }
                 }
             }
-            filteredPokemon.isEmpty() -> {
+            filteredCountry.isEmpty() -> {
                 Box(
                     modifier = Modifier.fillMaxSize(),
                     contentAlignment = Alignment.Center,
@@ -120,7 +124,7 @@ fun SearchTab(
                         )
                         Spacer(modifier = Modifier.height(8.dp))
                         Text(
-                            text = "No Pokémon found",
+                            text = "No Country found",
                             style = MaterialTheme.typography.bodyLarge,
                             textAlign = TextAlign.Center,
                         )
@@ -134,12 +138,14 @@ fun SearchTab(
                     verticalArrangement = Arrangement.spacedBy(16.dp),
                 ) {
                     items(
-                        items = filteredPokemon,
-                        key = { it.id },
-                    ) { pokemon ->
-                        PokemonCard(
-                            pokemon = pokemon,
-                            onClick = { onPokemonClick(pokemon.id) },
+                        items = filteredCountry,
+                        // FIX: Asegurar que la clave no sea nula para prevenir crashes durante la recomposición.
+                        key = { country -> country.name ?: country.hashCode() },
+                    ) { country ->
+                        // Aseguramos que la navegación solo ocurra si el nombre existe
+                        CountryCard(
+                            country = country,
+                            onClick = { country.name?.let(onCountryClick) },
                         )
                     }
                 }

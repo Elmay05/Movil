@@ -16,23 +16,25 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.app.examenmovil.presentation.screens.home.HomeViewModel
-import com.app.examenmovil.presentation.screens.home.components.PokemonListContent
+import com.app.examenmovil.presentation.screens.home.components.CountryListContent
+import com.app.examenmovil.presentation.screens.search.SearchTab
+
 
 @Suppress("ktlint:standard:function-naming")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
-    onPokemonClick: (String) -> Unit,
+    onCountryClick: (String) -> Unit,
     viewModel: HomeViewModel = hiltViewModel(),
 ) {
     var selectedTabIndex by remember { mutableStateOf(0) }
-    val tabs = listOf("Pokémon List", "Search")
+    val tabs = listOf("Country List", "Search")
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
-                title = { Text("Pokédex") },
+                title = { Text("Countries") },
             )
         },
     ) { padding ->
@@ -54,14 +56,14 @@ fun HomeScreen(
 
             when (selectedTabIndex) {
                 0 ->
-                    PokemonListContent(
-                        pokemonList = uiState.pokemonList,
+                   CountryListContent(
+                        countryList = uiState.countryList,
                         isLoading = uiState.isLoading,
                         error = uiState.error,
-                        onPokemonClick = onPokemonClick,
-                        onRetry = { viewModel.loadPokemonList() }, // Parámetro agregado
+                        onCountryClick = onCountryClick,
+                        onRetry = { viewModel.loadCountryList() }, // Parámetro agregado
                     )
-                1 -> SearchTab(onPokemonClick = onPokemonClick)
+                1 -> SearchTab(onCountryClick = onCountryClick)
             }
         }
     }

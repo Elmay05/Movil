@@ -15,20 +15,29 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.app.examenmovil.presentation.common.components.ErrorView
 import com.app.examenmovil.presentation.common.components.LoadingShimmer
 import com.app.examenmovil.presentation.screens.detail.ApiDetailViewModel
-import com.app.examenmovil.presentation.screens.detail.components.PokemonDetailContent
+import com.app.examenmovil.presentation.screens.detail.components.CountryDetailContent
 
+/**
+ * Pantalla que muestra los detalles de un país específico.
+ * Gestiona el estado de la UI (carga, error, éxito)
+ * y de invocar la lógica de carga de datos del ViewModel.
+ *
+ * @param countryName El nombre del país a cargar (pasado como argumento de navegación).
+ * @param onBackClick La acción a ejecutar cuando el usuario presiona "volver".
+ * @param viewModel El ApiDetailViewModel inyectado para gestionar el estado.
+ */
 @Suppress("ktlint:standard:function-naming")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PokemonDetailScreen(
-    pokemonId: String,
+fun CountryDetailScreen(
+    countryName: String,
     onBackClick: () -> Unit,
     viewModel: ApiDetailViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    LaunchedEffect(pokemonId) {
-        viewModel.getPokemon(pokemonId)
+    LaunchedEffect(countryName) {
+        viewModel.getCountry(countryName)
     }
 
     // Usaremos un padding estándar de 16.dp para el contenedor principal
@@ -56,14 +65,14 @@ fun PokemonDetailScreen(
             uiState.error != null -> {
                 ErrorView(
                     message = uiState.error ?: "Unknown error",
-                    onRetry = { viewModel.getPokemon(pokemonId) },
+                    onRetry = { viewModel.getCountry(countryName) },
                     modifier = Modifier.align(Alignment.Center),
                 )
             }
-            uiState.pokemon != null -> {
+            uiState.country != null -> {
                 // Si el estado es exitoso, muestra el contenido detallado
-                PokemonDetailContent(
-                    pokemon = uiState.pokemon!!,
+                CountryDetailContent(
+                    country = uiState.country!!,
                 )
             }
         }

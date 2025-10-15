@@ -1,3 +1,5 @@
+import android.content.ContentValues.TAG
+import android.util.Log
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectTapGestures
@@ -27,8 +29,8 @@ import com.app.examenmovil.domain.Api
 
 @Suppress("ktlint:standard:function-naming")
 @Composable
-fun PokemonCard(
-    pokemon: Api,
+fun CountryCard(
+    country: Api,
     onClick: () -> Unit,
 ) {
     var isPressed by remember { mutableStateOf(false) }
@@ -62,18 +64,9 @@ fun PokemonCard(
             modifier = Modifier.padding(8.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            AsyncImage(
-                model = pokemon.imageUrl,
-                contentDescription = pokemon.name,
-                modifier =
-                    Modifier
-                        .size(120.dp)
-                        .padding(8.dp),
-                contentScale = ContentScale.Fit,
-            )
 
             Text(
-                text = pokemon.name,
+                text = country.name,
                 style = MaterialTheme.typography.titleMedium,
                 textAlign = TextAlign.Center,
                 maxLines = 1,

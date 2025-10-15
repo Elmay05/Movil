@@ -11,18 +11,27 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ * ViewModel para gestionar estado de la pantalla de detalles de un país.
+ * Utiliza GetApiUseCase para obtener los datos detallados de un país específico.
+ */
 @HiltViewModel
 class ApiDetailViewModel
     @Inject
     constructor(
-        private val getPokemonUseCase: GetApiUseCase,
+        private val getCountryUseCase: GetApiUseCase,
     ) : ViewModel() {
         private val _uiState = MutableStateFlow(ApiDetailUiState())
         val uiState: StateFlow<ApiDetailUiState> = _uiState.asStateFlow()
-
-        fun getPokemon(id: String) {
+    /**
+     * Inicia la carga de los detalles de un país.
+     * Trabaja los estados loading, success y error al llamar a getCountryUseCase
+     *
+     * @param name El nombre del país que se desea buscar y obtener los detalles.
+     */
+        fun getCountry(name: String) {
             viewModelScope.launch {
-                getPokemonUseCase(id).collect { result ->
+                getCountryUseCase(name).collect { result ->
                     _uiState.update { state ->
                         when (result) {
                             is Result.Loading ->
@@ -31,7 +40,7 @@ class ApiDetailViewModel
                                 )
                             is Result.Success ->
                                 state.copy(
-                                    pokemon = result.data,
+                                    country = result.data,
                                     isLoading = false,
                                     error = null,
                                 )

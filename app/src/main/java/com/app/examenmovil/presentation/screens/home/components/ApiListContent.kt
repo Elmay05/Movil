@@ -1,6 +1,6 @@
 package com.app.examenmovil.presentation.screens.home.components
 
-import PokemonCard
+import CountryCard
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -25,11 +25,11 @@ import com.app.examenmovil.presentation.common.components.LoadingShimmer
 @OptIn(ExperimentalMaterialApi::class)
 @Suppress("ktlint:standard:function-naming")
 @Composable
-fun PokemonListContent(
-    pokemonList: List<Api>,
+fun CountryListContent(
+    countryList: List<Api>,
     isLoading: Boolean,
     error: String?,
-    onPokemonClick: (String) -> Unit,
+    onCountryClick: (String) -> Unit,
     onRetry: () -> Unit, // Parámetro agregado
 ) {
     val pullRefreshState =
@@ -61,7 +61,7 @@ fun PokemonListContent(
                     }
                 }
             }
-            error != null && pokemonList.isEmpty() -> {
+            error != null && countryList.isEmpty() -> {
                 ErrorView(
                     message = error,
                     onRetry = onRetry,
@@ -76,12 +76,12 @@ fun PokemonListContent(
                     verticalArrangement = Arrangement.spacedBy(16.dp),
                 ) {
                     items(
-                        items = pokemonList,
-                        key = { it.id },
-                    ) { pokemon ->
-                        PokemonCard(
-                            pokemon = pokemon,
-                            onClick = { onPokemonClick(pokemon.id) },
+                        items = countryList,
+                        key = { it.name },
+                    ) { country ->
+                        CountryCard(
+                            country = country,
+                            onClick = { onCountryClick(country.name) },
                         )
                     }
                 }

@@ -15,7 +15,7 @@ import javax.inject.Inject
 class HomeViewModel
     @Inject
     constructor(
-        private val getPokemonListUseCase: GetApiListUseCase,
+        private val getCountryListUseCase: GetApiListUseCase,
     ) : ViewModel() {
         // Para guardar el valor de las variables
         private val _uiState = MutableStateFlow(HomeUiState())
@@ -25,14 +25,14 @@ class HomeViewModel
 
         // sirve para iniciar la funcion de abajo
         init {
-            loadPokemonList()
+            loadCountryList()
         }
 
-        fun loadPokemonList() {
+        fun loadCountryList() {
             // viewModleScope
             viewModelScope.launch {
                 // usa nuestro caso de uso
-                getPokemonListUseCase().collect { result ->
+                getCountryListUseCase().collect { result ->
                     _uiState.update { state ->
                         when (result) {
                             is Result.Loading ->
@@ -41,7 +41,7 @@ class HomeViewModel
                                 )
                             is Result.Success ->
                                 state.copy(
-                                    pokemonList = result.data,
+                                    countryList = result.data,
                                     isLoading = false,
                                     error = null,
                                 )
