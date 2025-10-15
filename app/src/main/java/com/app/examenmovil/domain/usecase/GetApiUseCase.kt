@@ -6,6 +6,15 @@ import jakarta.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
+/**
+ * Caso de Uso (Use Case) para obtener
+ * el detalle de un país específico por su nombre.
+ *
+ * Implementa el patrón `invoke` (operador) para ser llamado directamente
+ * como una función (e.g., `getCountryUseCase(name)`).
+ *
+ * @property repository La interfaz del repositorio que proporciona la fuente de datos.
+ */
 class GetApiUseCase
     @Inject
     constructor(

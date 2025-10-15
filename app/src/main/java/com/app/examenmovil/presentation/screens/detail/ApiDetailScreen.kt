@@ -17,7 +17,15 @@ import com.app.examenmovil.presentation.common.components.LoadingShimmer
 import com.app.examenmovil.presentation.screens.detail.ApiDetailViewModel
 import com.app.examenmovil.presentation.screens.detail.components.CountryDetailContent
 
-
+/**
+ * Pantalla que muestra los detalles de un país específico.
+ * Gestiona el estado de la UI (carga, error, éxito)
+ * y de invocar la lógica de carga de datos del ViewModel.
+ *
+ * @param countryName El nombre del país a cargar (pasado como argumento de navegación).
+ * @param onBackClick La acción a ejecutar cuando el usuario presiona "volver".
+ * @param viewModel El ApiDetailViewModel inyectado para gestionar el estado.
+ */
 @Suppress("ktlint:standard:function-naming")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

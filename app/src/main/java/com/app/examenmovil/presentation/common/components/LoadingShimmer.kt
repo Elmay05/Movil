@@ -16,7 +16,16 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-
+/**
+ * Componente Composable que crea un efecto de "Shimmer" (brillo en movimiento)
+ * para simular una carga de contenido.
+ * para indicar que la información está siendo cargada de forma asíncrona.
+ *
+ * La animación consiste en una linea que se desplaza infinitamente
+ * sobre un área con esquinas redondeadas.
+ *
+ * @param modifier Modificador de Compose para personalizar el tamaño, forma y posición del Shimmer.
+ */
 @Suppress("ktlint:standard:function-naming")
 @Composable
 fun LoadingShimmer(modifier: Modifier = Modifier) {

@@ -17,6 +17,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.app.examenmovil.presentation.screens.home.HomeViewModel
 import com.app.examenmovil.presentation.screens.home.components.CountryListContent
+import com.app.examenmovil.presentation.screens.search.SearchTab
 
 
 @Suppress("ktlint:standard:function-naming")
@@ -33,7 +34,7 @@ fun HomeScreen(
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
-                title = { Text("Pokédex") },
+                title = { Text("Countries") },
             )
         },
     ) { padding ->

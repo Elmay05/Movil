@@ -17,7 +17,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.app.examenmovil.domain.Api
-
+/**
+ * Componente Composable principal que muestra el contenido detallado de un país.
+ * Organiza la bandera, el nombre y las estadísticas clave (capital, subregión, área, población)
+ *
+ * @param country El modelo de dominio Api que contiene toda la información del país a mostrar.
+ */
 @Suppress("ktlint:standard:function-naming")
 @Composable
 fun CountryDetailContent(country: Api) {
@@ -28,7 +33,11 @@ fun CountryDetailContent(country: Api) {
                 .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-
+        AsyncImage(
+            model = country.flag,
+            contentDescription = country.flag,
+            modifier = Modifier.size(200.dp),
+        )
 
         Spacer(modifier = Modifier.height(16.dp))
 
@@ -37,31 +46,41 @@ fun CountryDetailContent(country: Api) {
             style = MaterialTheme.typography.headlineMedium,
         )
 
+        Spacer(modifier = Modifier.height(10.dp))
+        Text("Information", style = MaterialTheme.typography.titleMedium)
         Spacer(modifier = Modifier.height(8.dp))
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceEvenly,
 
-        /*Row(
+
+        ) {
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Text("Capital")
+                Text("${country.capital}")
+            }
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Text("Subregion")
+                Text("${country.subregion}")
+            }
+        }
+        Spacer(modifier = Modifier.height(10.dp))
+        Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceEvenly,
         ) {
+
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Text("Height")
-                Text("${pokemon.height / 10.0}m")
+                Text("Area")
+                Text("${country.area}m^2")
             }
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Text("Weight")
-                Text("${pokemon.weight / 10.0}kg")
+                Text("Population")
+                Text("${country.population}")
             }
         }
-
         Spacer(modifier = Modifier.height(16.dp))
 
-        Text("Types", style = MaterialTheme.typography.titleMedium)
-        Row(
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-        ) {
-            pokemon.types.forEach { type ->
-                Chip(type = type)
-            }
-        }*/
+
     }
 }

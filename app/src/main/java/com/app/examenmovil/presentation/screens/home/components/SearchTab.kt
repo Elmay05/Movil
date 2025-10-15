@@ -1,5 +1,6 @@
+package com.app.examenmovil.presentation.screens.search
 
-
+import CountryCard
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -53,7 +54,7 @@ fun SearchTab(
             value = searchQuery,
             onValueChange = { searchQuery = it },
             modifier = Modifier.fillMaxWidth(),
-            label = { Text("Search Pokémon") },
+            label = { Text("Search Country") },
             leadingIcon = {
                 Icon(Icons.Default.Search, contentDescription = null)
             },
@@ -72,8 +73,11 @@ fun SearchTab(
                     emptyList()
                 } else {
                     uiState.countryList.filter { country ->
-                        country.name.contains(searchQuery, ignoreCase = true)// ||
-                            //country.name.contains(searchQuery)
+                        // FIX: Aplicar manejo de nulos seguro a las búsquedas por nombre y capital.
+                        val nameMatch = country.name?.contains(searchQuery, ignoreCase = true) ?: false
+                        val capitalMatch = country.capital?.contains(searchQuery, ignoreCase = true) ?: false
+
+                        nameMatch || capitalMatch
                     }
                 }
             }
@@ -120,7 +124,7 @@ fun SearchTab(
                         )
                         Spacer(modifier = Modifier.height(8.dp))
                         Text(
-                            text = "No Pokémon found",
+                            text = "No Country found",
                             style = MaterialTheme.typography.bodyLarge,
                             textAlign = TextAlign.Center,
                         )
@@ -135,11 +139,13 @@ fun SearchTab(
                 ) {
                     items(
                         items = filteredCountry,
-                        key = { it.name },
+                        // FIX: Asegurar que la clave no sea nula para prevenir crashes durante la recomposición.
+                        key = { country -> country.name ?: country.hashCode() },
                     ) { country ->
+                        // Aseguramos que la navegación solo ocurra si el nombre existe
                         CountryCard(
                             country = country,
-                            onClick = { onCountryClick(country.name) },
+                            onClick = { country.name?.let(onCountryClick) },
                         )
                     }
                 }
