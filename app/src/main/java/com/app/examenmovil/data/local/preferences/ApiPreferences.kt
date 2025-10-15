@@ -57,6 +57,7 @@ class ApiPreferences
             )
         }
 
+
         fun isCacheValid(): Boolean {
             val lastUpdate = prefs.getLong(PreferencesConstants.KEY_LAST_UPDATE, 0)
             return System.currentTimeMillis() - lastUpdate < PreferencesConstants.CACHE_DURATION
